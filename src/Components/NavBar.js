@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 
 function NavBar({logoUrl}) {
 
-    const products = useSelector((state)=> state.cart.products);
+    const products = useSelector((state)=> state.cart.cart);
     const total = useSelector((state) => state.cart.total);
     const [showCart, setShowCart] = useState(false);
 
@@ -26,23 +26,33 @@ function NavBar({logoUrl}) {
         </button>
 
         { showCart &&
-            <div className='absolute z-20 flex flex-col h-[200px] w-[300px] bg-[#ffffff] border border-slate-300 rounded-lg right-20 top-16'>
+            <div className='absolute z-20 flex flex-col w-[300px] bg-[#ffffff] border border-slate-300 rounded-lg right-20 top-16 pt-3 pb-3'>
 
             { products.map((product) => {
                 return(
-                    <div className='flex flex-row'>
-                        <img src={product.image} alt={product.name} />
-                        <div className='flex flex-col'>
-                            <p>{product.name}</p>
-                            <p></p>
+                    <div className='flex flex-row px-3 items-center mb-3'>
+                        <img className='w-[25px] h-[25px]' src={product.image} alt={product.name} />
+                        <div className='w-full flex flex-row items-center justify-between ml-3'>
+                            <div className='flex flex-col'>
+                                <p className='text-[14px] font-[500]'>{product.name}</p>
+                                <p className='text-[12px]'>{product.description}</p>
+                            </div>
+                            <p className='slef-end'>$ {product.price}</p>
                         </div>
-                        <p></p>
                     </div>
                 )
             })
             }
 
-            <div className='w-full flex flex-col items-end px-5 py-1'>
+            { products.length === 0 &&
+
+                <div className='w-full flex items-center justify-center text-[14px] font-[500] pb-2'>
+                    Cart Empty
+                </div>
+
+            }
+
+            <div className='w-full flex flex-col items-end px-5 py-1 border-t '>
                 <p>Total : $ {total}</p>
                 <button className='flex items-center justify-center border w-[100px] border-slate-400 px-2 py-0.5 text-[14px] rounded-3xl'>
                     <div>

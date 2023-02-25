@@ -2,7 +2,7 @@ import React from 'react';
 import {AiOutlineHeart} from "react-icons/ai";
 import StarRating from './StarRating';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../State/cartSlice';
 
 function ItemCard({product}) {
@@ -17,7 +17,7 @@ function ItemCard({product}) {
 
     <div className='flex flex-col z-10'>
 
-        <div className='flex items-center justify-center h-[300px] bg-[#f4f4f7] shadow-md rounded-md relative'>
+        <div className='flex items-center justify-center h-[300px] bg-[#f4f4f7] shadow-md rounded-md relative cursor-ponter'>
 
             <img className='w-[50%]' src={product.image} alt={product.name} /> 
 
@@ -27,12 +27,12 @@ function ItemCard({product}) {
 
         </div>
 
-        <Link to={{pathname:"/item-view", state:{product}}} >
-            <div className=' w-[100%] flex flex-row items-center justify-between my-1'>
-                <p className='text-[14px] font-[600]'>{product.name}</p>
-                <p><sup>$</sup>{product.price}<sup>00</sup></p>
-            </div>
-        </Link>
+        <div className=' w-[100%] flex flex-row items-center justify-between my-1'>
+            <Link to={{pathname:"/item-view", state:{product}}} >
+                <p className='text-[14px] font-[600] hover:text-sky-500'>{product.name}</p>
+            </Link>
+            <p><sup>$</sup>{product.price}<sup>00</sup></p>
+        </div>
 
         <div className=''>
             <p className='text-[13px] text-slate-400'>{product.description}</p>
